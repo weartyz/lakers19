@@ -13,8 +13,7 @@ function displayFilteredGames(filteredGames) {
   gamesContainer.innerHTML = "";
 
   if (filteredGames.length === 0) {
-    gamesContainer.innerHTML =
-      '<p class="no-results">No games found 😢</p>';
+    gamesContainer.innerHTML = '<p class="no-results">No games found 😢</p>';
     return;
   }
 
@@ -65,8 +64,7 @@ fetch("config/games.json")
   })
   .catch((error) => {
     console.error("Error fetching games:", error);
-    document.getElementById("loadingSpinner").textContent =
-      "Failed to load games.";
+    document.getElementById("loadingSpinner").textContent = "Failed to load games.";
   });
 
 document
