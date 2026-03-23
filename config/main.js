@@ -1,35 +1,32 @@
-// This changes the title of your site
-
-var sitename = "lakers19."; // Change this to change the name of your website.
-var subtext = "v1.2"; // set the subtext
-
-// more settings in main.css
-
-
-
-// END CONFIG
-// DO NOT MODIFY IF YOU DO NOT KNOW WHAT YOUR DOING!
-
 import "/./config/custom.js";
 
+var sitename = "lakers19.";
+var subtext = "v1.2";
 var serverUrl1 = "https://gms.parcoil.com";
-var currentPageTitle = document.title;
-document.title = `${currentPageTitle} | ${sitename}`;
-let gamesData = []; 
+
+let gamesData = [];
+
+document.title = document.title + " | " + sitename;
 
 function displayFilteredGames(filteredGames) {
   const gamesContainer = document.getElementById("gamesContainer");
-  gamesContainer.innerHTML = ""; 
+  gamesContainer.innerHTML = "";
+
+  if (filteredGames.length === 0) {
+    gamesContainer.innerHTML =
+      '<p class="no-results">No games found 😢</p>';
+    return;
+  }
 
   filteredGames.forEach((game) => {
     const gameDiv = document.createElement("div");
     gameDiv.classList.add("game");
 
     const gameImage = document.createElement("img");
-    gameImage.src = `${serverUrl1}/${game.url}/${game.image}`;
+    gameImage.src = serverUrl1 + "/" + game.url + "/" + game.image;
     gameImage.alt = game.name;
     gameImage.onclick = () => {
-      window.location.href = `play.html?gameurl=${game.url}/`;
+      window.location.href = "play.html?gameurl=" + game.url + "/";
     };
 
     const gameName = document.createElement("p");
@@ -37,10 +34,17 @@ function displayFilteredGames(filteredGames) {
 
     gameDiv.appendChild(gameImage);
     gameDiv.appendChild(gameName);
+
+    if (game.new) {
+      const badge = document.createElement("span");
+      badge.textContent = "NEW";
+      badge.classList.add("new-badge");
+      gameDiv.appendChild(badge);
+    }
+
     gamesContainer.appendChild(gameDiv);
   });
 }
-
 
 function handleSearchInput() {
   const searchInputValue = document
@@ -52,21 +56,22 @@ function handleSearchInput() {
   displayFilteredGames(filteredGames);
 }
 
-
-fetch("./config/games.json") 
+fetch("config/games.json")
   .then((response) => response.json())
   .then((data) => {
     gamesData = data;
-    displayFilteredGames(data); 
+    document.getElementById("loadingSpinner").style.display = "none";
+    displayFilteredGames(data);
   })
-  .catch((error) => console.error("Error fetching games:", error));
-
+  .catch((error) => {
+    console.error("Error fetching games:", error);
+    document.getElementById("loadingSpinner").textContent =
+      "Failed to load games.";
+  });
 
 document
   .getElementById("searchInput")
   .addEventListener("input", handleSearchInput);
 
-document.getElementById("title").innerHTML = `${sitename}`;
-
-document.getElementById("subtitle").innerHTML = `${subtext}`
-
+document.getElementById("title").innerHTML = sitename;
+document.getElementById("subtitle").innerHTML = subtext;
