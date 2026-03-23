@@ -55,7 +55,7 @@ function handleSearchInput() {
   displayFilteredGames(filteredGames);
 }
 
-fetch("config/games.json")
+fetch("/lakers19/config/games.json")
   .then((response) => response.json())
   .then((data) => {
     gamesData = data;
