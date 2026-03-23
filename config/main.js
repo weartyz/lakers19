@@ -1,5 +1,3 @@
-import "/./config/custom.js";
-
 var sitename = "lakers19.";
 var subtext = "v1.2";
 var serverUrl1 = "https://gms.parcoil.com";
