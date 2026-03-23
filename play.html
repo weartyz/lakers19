@@ -31,7 +31,7 @@
     </style>
   </head>
   <body>
-    <button id="backBtn" onclick="window.location.href='/'">← Back</button>
+    <button id="backBtn" onclick="window.location.href='/lakers19/'">← Back</button>
     <iframe id="gameFrame"></iframe>
     <script>
       var serverUrl1 = "https://gms.parcoil.com";
@@ -39,8 +39,7 @@
       const urlParams = new URLSearchParams(queryString);
       const gameUrl = urlParams.get("gameurl");
       if (!gameUrl) {
-        alert("Game URL not provided!");
-        window.location.href = '/lakers19/'
+        window.location.href = '/lakers19/';
       } else {
         document.getElementById("gameFrame").src = serverUrl1 + "/" + gameUrl;
       }
