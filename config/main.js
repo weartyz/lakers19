@@ -53,7 +53,7 @@ function handleSearchInput() {
   displayFilteredGames(filteredGames);
 }
 
-fetch("/lakers19/config/games.json")
+fetch("/config/games.json")
   .then((response) => response.json())
   .then((data) => {
     gamesData = data;
@@ -62,7 +62,7 @@ fetch("/lakers19/config/games.json")
   })
   .catch((error) => {
     console.error("Error fetching games:", error);
-    document.getElementById("loadingSpinner").textContent = "Failed to load games.";
+    document.getElementById("loadingSpinner").textContent = "Failed to load games. Check console for errors.";
   });
 
 document
